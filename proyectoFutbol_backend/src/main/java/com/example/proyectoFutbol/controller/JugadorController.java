@@ -1,9 +1,7 @@
 package com.example.proyectoFutbol.controller;
 
-import com.example.proyectoFutbol.entity.Equipo;
 import com.example.proyectoFutbol.entity.Jugador;
-import com.example.proyectoFutbol.repository.EquipoRepository;
-import com.example.proyectoFutbol.repository.JugadorRepository;
+import com.example.proyectoFutbol.service.JugadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,64 +13,43 @@ import java.util.List;
 public class JugadorController {
 
     @Autowired
-    private JugadorRepository jugadorRepository;
-
-    @Autowired
-    private EquipoRepository equipoRepository;
+    private JugadorService jugadorService;
 
     @GetMapping
     public List<Jugador> listarTodos() {
-        return jugadorRepository.findAll();
+        return jugadorService.listarTodos();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Jugador> obtenerPorId(@PathVariable Long id) {
-        return jugadorRepository.findById(id)
+        return jugadorService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/por-equipo/{equipoId}")
     public List<Jugador> listarPorEquipo(@PathVariable Long equipoId) {
-        return jugadorRepository.findByEquipoId(equipoId);
+        return jugadorService.listarPorEquipo(equipoId);
     }
 
     @PostMapping
     public ResponseEntity<Jugador> crear(@RequestBody Jugador jugador) {
-        if (jugador.getEquipo() == null || jugador.getEquipo().getId() == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return equipoRepository.findById(jugador.getEquipo().getId())
-                .map(equipo -> {
-                    jugador.setEquipo(equipo);
-                    return ResponseEntity.ok(jugadorRepository.save(jugador));
-                })
+        return jugadorService.crear(jugador)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().build());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Jugador> actualizar(@PathVariable Long id, @RequestBody Jugador jugador) {
-        return jugadorRepository.findById(id)
-                .map(existente -> {
-                    existente.setNombre(jugador.getNombre());
-                    existente.setPosicion(jugador.getPosicion());
-                    existente.setDorsal(jugador.getDorsal());
-                    if (jugador.getEquipo() != null && jugador.getEquipo().getId() != null) {
-                        equipoRepository.findById(jugador.getEquipo().getId())
-                                .ifPresent(existente::setEquipo);
-                    }
-                    return ResponseEntity.ok(jugadorRepository.save(existente));
-                })
+        return jugadorService.actualizar(id, jugador)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        return jugadorRepository.findById(id)
-                .map(existente -> {
-                    jugadorRepository.delete(existente);
-                    return ResponseEntity.noContent().<Void>build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+        return jugadorService.eliminar(id)
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
     }
 }

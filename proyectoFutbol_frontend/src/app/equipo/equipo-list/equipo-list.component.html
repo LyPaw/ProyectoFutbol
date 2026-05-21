@@ -1,0 +1,28 @@
+<div>
+  <h2>Equipos</h2>
+  <button class="nuevo" (click)="nuevo()">+ Nuevo equipo</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Estadio</th>
+        <th>Fundación</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let equipo of equipos">
+        <td>{{ equipo.nombre }}</td>
+        <td>{{ equipo.ciudad }}</td>
+        <td>{{ equipo.estadio }}</td>
+        <td>{{ equipo.fundacion }}</td>
+        <td>
+          <button class="btn-editar" (click)="editar(equipo.id!)">Editar</button>
+          <button class="btn-eliminar" (click)="eliminar(equipo.id!)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
