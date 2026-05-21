@@ -1,12 +1,12 @@
 # Frontend - ProyectoFútbol
 
-Aplicación web para la gestión de equipos y jugadores de fútbol, desarrollada con **Angular 18**.
+Aplicación web para la gestión de equipos y jugadores de fútbol, desarrollada con **Angular 21**.
 
 ---
 
 ## Tecnologías
 
-- Angular 18
+- Angular 21
 - TypeScript
 - HTML5 / CSS3
 - RxJS
@@ -23,13 +23,6 @@ Aplicación web para la gestión de equipos y jugadores de fútbol, desarrollada
 ## Instalación
 
 ```bash
-# Clona el repositorio
-git clone <url-del-repositorio>
-
-# Entra en la carpeta del frontend
-cd futbol-manager
-
-# Instala las dependencias
 npm install
 ```
 
@@ -48,33 +41,37 @@ Abre el navegador en `http://localhost:4200`.
 ## Estructura de carpetas
 
 ```
-futbol-manager/
-└── src/
-    └── app/
-        ├── equipo/
-        │   ├── equipo-list/
-        │   │   ├── equipo-list.component.ts
-        │   │   ├── equipo-list.component.html
-        │   │   └── equipo-list.component.css
-        │   └── equipo-form/
-        │       ├── equipo-form.component.ts
-        │       ├── equipo-form.component.html
-        │       └── equipo-form.component.css
-        ├── equipo.model.ts
-        ├── equipo.service.ts
-        ├── app.component.ts
-        ├── app.component.html
-        └── app.routes.ts
+src/app/
+├── equipo/
+│   ├── equipo-list/         ← Listado de equipos con tabla expandible de jugadores
+│   └── equipo-form/         ← Formulario crear/editar equipo
+├── jugador/
+│   ├── jugador-list/        ← Listado de todos los jugadores
+│   └── jugador-form/        ← Formulario crear/editar jugador
+├── models/                  ← Interfaces (equipo.ts, jugador.ts, crear-jugador-request.ts)
+├── services/                ← Servicios HTTP (equipo.service.ts, jugador.service.ts)
+├── app.ts                   ← Componente raíz con navegación por pestañas
+├── app.html                 ← Template raíz
+├── app.css                  ← Estilos globales
+├── app.config.ts            ← Configuración de Angular (router, HttpClient)
+└── app.routes.ts            ← Definición de rutas
 ```
 
 ---
 
 ## Funcionalidades
 
-- Listado de equipos de fútbol
+### Equipos
+- Listado de equipos con sus jugadores en tabla expandible (▶/▼)
 - Crear nuevo equipo
 - Editar equipo existente
 - Eliminar equipo
+
+### Jugadores
+- Listado de todos los jugadores
+- Crear nuevo jugador (asignado a un equipo existente)
+- Editar jugador existente
+- Eliminar jugador
 
 ---
 
@@ -85,52 +82,18 @@ futbol-manager/
 | `/equipos` | Lista de equipos |
 | `/equipos/nuevo` | Formulario para crear un equipo |
 | `/equipos/editar/:id` | Formulario para editar un equipo |
+| `/jugadores` | Lista de jugadores |
+| `/jugadores/nuevo` | Formulario para crear un jugador |
+| `/jugadores/editar/:id` | Formulario para editar un jugador |
 
 ---
 
 ## Conexión con el backend
 
-Por defecto la aplicación usa datos mock. Para conectarla al backend Spring Boot, abre `src/app/equipo.service.ts` e inyecta `HttpClient`:
+El frontend se conecta al backend Spring Boot mediante `HttpClient` con un proxy configurado en `proxy.conf.json`:
 
-```typescript
-import { HttpClient } from '@angular/common/http';
-
-constructor(private http: HttpClient) {}
-
-private apiUrl = 'http://localhost:8080/api/equipos';
-
-getEquipos() {
-  return this.http.get<Equipo[]>(this.apiUrl);
-}
-
-getEquipo(id: number) {
-  return this.http.get<Equipo>(`${this.apiUrl}/${id}`);
-}
-
-createEquipo(equipo: Equipo) {
-  return this.http.post<Equipo>(this.apiUrl, equipo);
-}
-
-updateEquipo(equipo: Equipo) {
-  return this.http.put<Equipo>(`${this.apiUrl}/${equipo.id}`, equipo);
-}
-
-deleteEquipo(id: number) {
-  return this.http.delete(`${this.apiUrl}/${id}`);
-}
 ```
-
-Y añade `provideHttpClient()` en `app.config.ts`:
-
-```typescript
-import { provideHttpClient } from '@angular/common/http';
-
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes),
-    provideHttpClient()
-  ]
-};
+/api/* → http://localhost:8080
 ```
 
 El backend debe correr en `http://localhost:8080` y tener CORS habilitado para `http://localhost:4200`.
