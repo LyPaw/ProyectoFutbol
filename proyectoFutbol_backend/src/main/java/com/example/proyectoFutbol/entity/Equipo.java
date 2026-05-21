@@ -1,9 +1,9 @@
 package com.example.proyectoFutbol.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Equipo {
@@ -15,6 +15,10 @@ public class Equipo {
     private String ciudad;
     private String estadio;
     private Integer fundacion;
+
+    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("equipo")
+    private List<Jugador> jugadores = new ArrayList<>();
 
     public Equipo() {}
 
@@ -39,4 +43,7 @@ public class Equipo {
 
     public Integer getFundacion() { return fundacion; }
     public void setFundacion(Integer fundacion) { this.fundacion = fundacion; }
+
+    public List<Jugador> getJugadores() { return jugadores; }
+    public void setJugadores(List<Jugador> jugadores) { this.jugadores = jugadores; }
 }
