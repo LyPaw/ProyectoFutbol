@@ -1,4 +1,4 @@
-import { Equipo } from './equipo';
+import type { Equipo } from './equipo';
 
 export interface Jugador {
   id: number;

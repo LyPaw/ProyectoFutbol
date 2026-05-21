@@ -51,19 +51,6 @@ tbody td {
   border-bottom: 1px solid #eee;
 }
 
-.btn-expandir {
-  background: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 2px 6px;
-  font-size: 0.8rem;
-}
-
-.btn-expandir:hover {
-  background: #eee;
-}
-
 td button {
   border: none;
   padding: 0.4rem 0.8rem;
@@ -87,32 +74,4 @@ td .btn-editar:hover {
 
 td .btn-eliminar:hover {
   background: #c73652;
-}
-
-.jugadores-row td {
-  background: #fafafa;
-  padding: 1rem 2rem;
-}
-
-.jugadores-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.subtabla {
-  width: auto;
-  min-width: 400px;
-  box-shadow: none;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
-.subtabla thead {
-  background: #0f3460;
-}
-
-.subtabla th,
-.subtabla td {
-  padding: 0.5rem 1rem;
 }

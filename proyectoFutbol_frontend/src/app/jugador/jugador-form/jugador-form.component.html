@@ -1,0 +1,31 @@
+<div class="form-container">
+  <h2>{{ esEdicion ? 'Editar jugador' : 'Nuevo jugador' }}</h2>
+
+  <div class="form-group">
+    <label>Nombre</label>
+    <input [(ngModel)]="jugador.nombre" placeholder="Nombre del jugador" />
+  </div>
+
+  <div class="form-group">
+    <label>Posición</label>
+    <input [(ngModel)]="jugador.posicion" placeholder="Portero, Defensa, Centrocampista, Delantero" />
+  </div>
+
+  <div class="form-group">
+    <label>Dorsal</label>
+    <input [(ngModel)]="jugador.dorsal" type="number" placeholder="Número de camiseta" />
+  </div>
+
+  <div class="form-group">
+    <label>Equipo</label>
+    <select [(ngModel)]="jugador.equipo.id">
+      <option [ngValue]="0" disabled>Seleccione un equipo</option>
+      <option *ngFor="let equipo of equipos" [ngValue]="equipo.id">{{ equipo.nombre }}</option>
+    </select>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-guardar" (click)="guardar()">Guardar</button>
+    <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>
