@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Equipo } from '../../equipo.model';
-import { EquipoService } from '../../equipo.service';
+import { Equipo } from '../../models/equipo';
+import { EquipoService } from '../../services/equipo.service';
 
 @Component({
   selector: 'app-equipo-form',
@@ -26,19 +26,19 @@ export class EquipoFormComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.esEdicion = true;
-      this.equipoService.getEquipo(Number(id)).subscribe((data) => {
-        if (data) this.equipo = data;
+      this.equipoService.obtenerEquipoPorId(Number(id)).subscribe((data) => {
+        this.equipo = data;
       });
     }
   }
 
   guardar() {
     if (this.esEdicion) {
-      this.equipoService.updateEquipo(this.equipo).subscribe(() => {
+      this.equipoService.actualizarEquipo(this.equipo.id, this.equipo).subscribe(() => {
         this.router.navigate(['/equipos']);
       });
     } else {
-      this.equipoService.createEquipo(this.equipo).subscribe(() => {
+      this.equipoService.crearEquipo(this.equipo).subscribe(() => {
         this.router.navigate(['/equipos']);
       });
     }

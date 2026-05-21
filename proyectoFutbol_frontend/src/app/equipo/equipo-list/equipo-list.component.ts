@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Equipo } from '../../equipo.model';
-import { EquipoService } from '../../equipo.service';
-import { RouterModule } from '@angular/router';
+import { Equipo } from '../../models/equipo';
+import { EquipoService } from '../../services/equipo.service';
 
 @Component({
   selector: 'app-equipo-list',
@@ -21,7 +20,7 @@ export class EquipoListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.equipoService.getEquipos().subscribe((data) => (this.equipos = data));
+    this.equipoService.listarEquipos().subscribe((data) => (this.equipos = data));
   }
 
   nuevo() {
@@ -33,7 +32,7 @@ export class EquipoListComponent implements OnInit {
   }
 
   eliminar(id: number) {
-    this.equipoService.deleteEquipo(id).subscribe(() => {
+    this.equipoService.eliminarEquipo(id).subscribe(() => {
       this.equipos = this.equipos.filter((e) => e.id !== id);
     });
   }
