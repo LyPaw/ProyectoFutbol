@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Equipo } from '../../equipo.model';
 import { EquipoService } from '../../equipo.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-equipo-list',
