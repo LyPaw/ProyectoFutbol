@@ -1,4 +1,4 @@
-# ProyectoFutbol — Frontend
+# Frontend - ProyectoFútbol
 
 Aplicación web para la gestión de equipos y jugadores de fútbol, desarrollada con **Angular 18**.
 
