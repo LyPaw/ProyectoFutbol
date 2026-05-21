@@ -1,0 +1,62 @@
+<div>
+  <h2>Equipos</h2>
+  <button class="nuevo" (click)="nuevo()">+ Nuevo equipo</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Estadio</th>
+        <th>Fundación</th>
+        <th>Jugadores</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let equipo of equipos">
+        <tr>
+          <td>
+            <button class="btn-expandir" (click)="toggleJugadores(equipo.id!)">
+              {{ expandido === equipo.id ? '▼' : '▶' }}
+            </button>
+          </td>
+          <td>{{ equipo.nombre }}</td>
+          <td>{{ equipo.ciudad }}</td>
+          <td>{{ equipo.estadio }}</td>
+          <td>{{ equipo.fundacion }}</td>
+          <td>{{ equipo.jugadores?.length ?? 0 }}</td>
+          <td>
+            <button class="btn-editar" (click)="editar(equipo.id!)">Editar</button>
+            <button class="btn-eliminar" (click)="eliminar(equipo.id!)">Eliminar</button>
+          </td>
+        </tr>
+        <tr *ngIf="expandido === equipo.id" class="jugadores-row">
+          <td colspan="7">
+            <div class="jugadores-container">
+              <strong>Jugadores de {{ equipo.nombre }}:</strong>
+              <table class="subtabla" *ngIf="equipo.jugadores?.length">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Posición</th>
+                    <th>Dorsal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let jugador of equipo.jugadores">
+                    <td>{{ jugador.nombre }}</td>
+                    <td>{{ jugador.posicion }}</td>
+                    <td>{{ jugador.dorsal }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <span *ngIf="!equipo.jugadores?.length">Sin jugadores</span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

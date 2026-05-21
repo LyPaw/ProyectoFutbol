@@ -1,0 +1,118 @@
+:host {
+  display: block;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #1a1a2e;
+  margin-bottom: 1.5rem;
+}
+
+button.nuevo {
+  background: #16213e;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+button.nuevo:hover {
+  background: #0f3460;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background: #1a1a2e;
+  color: white;
+}
+
+thead th {
+  padding: 1rem;
+  text-align: left;
+}
+
+tbody td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.btn-expandir {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+}
+
+.btn-expandir:hover {
+  background: #eee;
+}
+
+td button {
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  color: white;
+}
+
+td .btn-editar {
+  background: #0f3460;
+}
+
+td .btn-eliminar {
+  background: #e94560;
+}
+
+td .btn-editar:hover {
+  background: #16213e;
+}
+
+td .btn-eliminar:hover {
+  background: #c73652;
+}
+
+.jugadores-row td {
+  background: #fafafa;
+  padding: 1rem 2rem;
+}
+
+.jugadores-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subtabla {
+  width: auto;
+  min-width: 400px;
+  box-shadow: none;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.subtabla thead {
+  background: #0f3460;
+}
+
+.subtabla th,
+.subtabla td {
+  padding: 0.5rem 1rem;
+}

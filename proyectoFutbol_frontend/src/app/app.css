@@ -1,0 +1,26 @@
+nav {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: #1a1a2e;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+nav a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover {
+  background: #0f3460;
+  color: white;
+}
+
+nav a.active {
+  color: white;
+  font-weight: 600;
+}
