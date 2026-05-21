@@ -52,3 +52,7 @@ El frontend redirige `/api/*` al backend mediante proxy configurado.
 | `DELETE /api/jugadores/{id}` | Elimina jugador |
 
 Consola H2: `http://localhost:8080/h2-console` (JDBC: `jdbc:h2:mem:footballdb`)
+
+## Bugs conocidos
+
+- **Doble click en la navegación:** Al hacer click en "Equipos" o "Jugadores", a veces hay que pulsar dos veces para que se muestre el contenido. Ocurre también después de guardar o eliminar un registro.
